@@ -12,7 +12,6 @@ function App() {
   const ValidateForm = () => {
     let isValidate = true
     setError(null)
-
     if(isEmpty(task)){
       setError("Debes ingresar una tarea")
       isValidate = false    
