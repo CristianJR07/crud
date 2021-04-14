@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { isEmpty, size } from 'lodash'
 import shortid from 'shortid'
+import { getcollection } from './actions'
 
 function App() {
   const [task, setTask] = useState(null)
@@ -9,7 +10,14 @@ function App() {
   const [Id, setId] = useState("")
   const [error, setError] = useState(null)
 
-  const ValidateForm = () => {
+  useEffect (() => {
+    (async () => {
+      const result = await getcollection("Tasks")
+      console.log(result)
+    })()
+  }, [])
+
+  const ValidateForm =  () => {
     let isValidate = true
     setError(null)
     if(isEmpty(task)){
@@ -99,7 +107,7 @@ function App() {
                 className="form-control mb-2" 
                 placeholder="Ingrese la tarea"
                 onChange={(text) => setTask(text.target.value)}
-                value={task}
+                value={task || ""}
               />
               <button className={EditMode ?  "btn btn-warning btn-block" : "btn btn-dark btn-block"}
                 type="submit">{EditMode ? "Guardar" : "Agregar"}
